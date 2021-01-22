@@ -144,6 +144,7 @@ namespace Biblioteka_MongoDB
             {
                 Refresh();
                 forma.ShowDialog();
+
                 
             }
             Refresh();

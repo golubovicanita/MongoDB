@@ -236,6 +236,7 @@ namespace Biblioteka_MongoDB
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "Form1";
             this.Text = "Narodna biblioteka \"Stevan Sremac\"";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

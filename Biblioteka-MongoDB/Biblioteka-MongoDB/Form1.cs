@@ -37,20 +37,24 @@ namespace Biblioteka_MongoDB
              *  Biblioteka biblioteka = new Biblioteka { Naziv = "Stevan Sremac", Adresa = "Borivoja Gojkovica 9", Telefon = new List<string> { " 018/511-403", "018 / 250 - 188" }, GodinaOsnivanja = 1879, GodisnjaClanarina = 800 };
                 collection.InsertOne(biblioteka);
              */
-            var query1 = from b in collection.AsQueryable<Biblioteka>()
-                         where b.Naziv == "Stevan Sremac"
-                         select b;
-            foreach (Biblioteka bb in query1)
+            /* var query1 = from b in collection.AsQueryable<Biblioteka>()
+                          where b.Naziv == "Stevan Sremac"
+                          select b;*/
+
+            var builder = Builders<Biblioteka>.Filter;
+            var filter = builder.Where(x => x.Naziv == "Stevan Sremac");
+            var biblioteka = collection.Find(filter).FirstOrDefault();
+           
+            if (biblioteka == null)
             {
-                if (bb == null)
-                {
-                    Biblioteka biblioteka = new Biblioteka { Naziv = "Stevan Sremac", Adresa = "Borivoja Gojkovica 9", Telefon = new List<string> { " 018/511-403", "018 / 250 - 188" }, GodinaOsnivanja = 1879, GodisnjaClanarina = 800 };
-                    collection.InsertOne(biblioteka);
-                }
-                PrikaziInfoBiblioteka forma = new PrikaziInfoBiblioteka(bb);
-                Refresh();
-                forma.ShowDialog();
+                Biblioteka biblioteka2 = new Biblioteka { Naziv = "Stevan Sremac", Adresa = "Borivoja Gojkovica 9", Telefon = new List<string> { " 018/511-403", "018 / 250 - 188" }, GodinaOsnivanja = 1879, GodisnjaClanarina = 800 };
+                collection.InsertOne(biblioteka2);
+                biblioteka = biblioteka2;
             }
+            PrikaziInfoBiblioteka forma = new PrikaziInfoBiblioteka(biblioteka);
+            Refresh();
+            forma.ShowDialog();
+            
             
         }
 
@@ -123,6 +127,11 @@ namespace Biblioteka_MongoDB
                 forma.ShowDialog();
                 Refresh();
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
